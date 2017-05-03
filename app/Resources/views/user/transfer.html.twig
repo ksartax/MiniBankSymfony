@@ -1,0 +1,255 @@
+{% extends 'base/base.html.twig' %}
+
+{% block menu %}
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary" style="text-align: center">
+                <div class="panel-heading">
+                    <i class="fa fa-user-refresh" aria-hidden="true"> index <- Confnij</i>
+                    <i class="fa fa-university" aria-hidden="true"> Transfer pieniędzy</i>
+                </div>
+                <div class="panel-body">
+                    <a href="../user" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-7 text-center">
+                <div class="well">
+                    <h1>Użytkownicy</h1>
+
+                    <form class="form-inline" method="get" action="{{ path('user_transaction') }}">
+
+                        <div class="form-group">
+                            <input placeholder="email" type="email" class="form-control" name="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="lastname" placeholder="nazwisko"
+                                   id="lastname">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="bank_account_number" placeholder="nr konta"
+                                   id="bank_account_number">
+                        </div>
+
+                        <button type="submit" style="width: 100%" class="btn btn-default">Szukaj</button>
+
+                    </form>
+
+                    <p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Imie Nazwisko</th>
+                            <th style="text-align: center">Email</th>
+                            <th style="text-align: center">Nr Konta</th>
+                            <th style="text-align: center">Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in users %}
+                            <tr style="text-align: center">
+                                <td>{{ item.firstname }} {{ item.lastname }}</td>
+                                <td>{{ item.email }} </td>
+                                <td>{{ item.getFinanceAccountUserId.getBankAccountNumber }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button"
+                                                data-nr="{{ item.getFinanceAccountUserId.getBankAccountNumber }}"
+                                                class="btn btn-primary select">Wybierz
+                                        </button>
+                                        <button type="button" data-email="{{ item.email }}" class="btn btn-success add">
+                                            Przyjaciel
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if users.haveToPaginate %}
+                        <div class="navigation text-center">
+                            {{ pagerfanta(users, 'twitter_bootstrap3_translated', {routeName: 'user_transaction'}) }}
+                        </div>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-5 sidenav text-center">
+                <div class="well">
+                    <h1>Przyjaciele</h1>
+                    <form class="form-inline" method="get" action="{{ path('user_transaction') }}">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="lastname_buddy" placeholder="Wprowadz wartość"
+                                   id="lastname">
+                        </div>
+
+                        <button type="submit" style="width: 100%" class="btn btn-default">Szukaj</button>
+
+                    </form>
+                    <p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Imie Nazwisko</th>
+                            <th style="text-align: center">Nr Konta</th>
+                            <th style="text-align: center">Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody id="frends">
+                        {% for item in buddy %}
+                            <tr style="text-align: center">
+                                <td>{{ item.getEnemyUserId.firstname }} {{ item.getEnemyUserId.lastname }}</td>
+                                <td>{{ item.getEnemyUserId.getFinanceAccountUserId.getBankAccountNumber }}</td>
+                                <td>
+                                    <button type="button"
+                                            data-nr="{{ item.getEnemyUserId.getFinanceAccountUserId.getBankAccountNumber }}"
+                                            class="btn btn-primary select">Wybierz
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row content">
+            <div class="col-sm-12 text-center">
+                <div class="well">
+                    <h1>Tranzakcja</h1>
+                    <p>
+
+                    <form class="form-inline" method="post" action="{{ path('user_transaction') }}">
+                        <div class="form-group">
+                            <label for="account_nr">Nr Konta : </label>
+                            <input type="text" class="form-control" name="account_nr" id="account_nr">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Kwota:</label>
+                            <input type="text" class="form-control" name="price" id="price">
+                        </div>
+
+                        <button type="submit" class="btn btn-default">Wyślij</button>
+                    </form>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row content">
+            <div class="col-sm-6 text-center">
+                <div class="well">
+                    <h1>Historia Wysyłki</h1>
+                    <p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Nr konta</th>
+                            <th style="text-align: center">Kwota</th>
+                            <th style="text-align: center">Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in user_to %}
+                            <tr style="text-align: center">
+                                <td>{{ item.getToFinanceAccountUserId.getBankAccountNumber }} </td>
+                                <td>{{ item.getPrice }} </td>
+                                <td>{{ item.getCreateData|date("m/d/Y") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <div class="well">
+                    <h1>Historia Dostawy</h1>
+                    <p>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Nr konta</th>
+                            <th style="text-align: center">Kwota</th>
+                            <th style="text-align: center">Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in user_from %}
+                            <tr style="text-align: center">
+                                <td>{{ item.getToFinanceAccountUserId.getBankAccountNumber }} </td>
+                                <td>{{ item.getPrice }} </td>
+                                <td>{{ item.getCreateData|date("m/d/Y") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br/>
+    <br/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        $(function () {
+
+            $(".select").on("click", function () {
+                $("#account_nr").val($(this).attr('data-nr'));
+            });
+
+        });
+
+        $(function () {
+
+            $(".add").on("click", function () {
+                $.post("http://127.0.0.1:8000/user/setBudy",
+                    {
+                        email: $(this).attr('data-email')
+                    },
+                    function (data, status) {
+                        data = JSON.parse(data);
+                        $("#frends").append(
+                            "<tr>" +
+                            "<td>" +
+                            data.firstname_lastname +
+                            "</td>" +
+                            "<td>" +
+                            data.account_nr +
+                            "</td>" +
+                            "<td>" +
+                            "<button type='button' data-nr='" + data.account_nr + "' class='btn btn-primary select'>Wybierz</button>" +
+                            "</td>" +
+                            "</tr>"
+                        );
+                    });
+            });
+
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base/base.html.twig' %}
+
+{% block menu %}
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary" style="text-align: center">
+            <div class="panel-heading">
+                <i class="fa fa-user-refresh" aria-hidden="true"> index <- Confnij</i>
+                <i class="fa fa-user-circle" aria-hidden="true"> Profil/Statystyki</i>
+            </div>
+            <div class="panel-body">
+                <a href="../user" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+        <div class="row" style="text-align: center">
+            <div class="col-sm-4">
+                <div class="panel panel-primary" style="text-align: center">
+                    <div class="panel-heading">
+                        <i class="fa fa-address-card-o" aria-hidden="true"> Adres </i>
+                    </div>
+                    <div class="panel-body">
+
+                        {% form_theme formAddress 'bootstrap_3_horizontal_layout.html.twig' %}
+
+                        {{ form_start(formAddress, {method: 'POST', action: path('user_profile')}) }}
+
+                        {{ form_widget(formAddress) }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Zapisz</button>
+                            </div>
+                        </div>
+
+                        {{ form_end(formAddress) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary" style="text-align: center">
+                    <div class="panel-heading">
+                        <i class="fa fa-id-card-o" aria-hidden="true"> Kontakt </i>
+                    </div>
+                    <div class="panel-body">
+                        {% form_theme formContact 'bootstrap_3_horizontal_layout.html.twig' %}
+
+                        {{ form_start(formContact, {method: 'POST', action: path('user_profile')}) }}
+
+                        {{ form_widget(formContact) }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Zapisz</button>
+                            </div>
+                        </div>
+
+                        {{ form_end(formContact) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary" style="text-align: center">
+                    <div class="panel-heading">
+                        <i class="fa fa-user-o" aria-hidden="true"> Profil </i>
+                    </div>
+                    <div class="panel-body">
+                        {% form_theme formUser 'bootstrap_3_horizontal_layout.html.twig' %}
+
+                        {{ form_start(formUser, {method: 'POST', action: path('user_profile')}) }}
+
+                        {{ form_widget(formUser) }}
+
+                        {{ form_end(formUser) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br/>
+    <br/>
+
+
+{% endblock %}

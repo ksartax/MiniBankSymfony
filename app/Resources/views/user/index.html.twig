@@ -1,0 +1,75 @@
+{% extends 'base/base.html.twig' %}
+
+
+{% block main %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" style="text-align: center">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-user-circle" aria-hidden="true"> Profil/Statystyki</i>
+                    </div>
+                    <div class="panel-body">
+                        <a href="user/profile" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" style="text-align: center">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-chevron-circle-up" aria-hidden="true"> Wpłaty na konto</i>
+                    </div>
+                    <div class="panel-body">
+                        <a href="user/deposit" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" style="text-align: center">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true"> Wypłaty z konta</i>
+                    </div>
+                    <div class="panel-body">
+                        <a href="user/remove" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" style="text-align: center">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-university" aria-hidden="true"> Transfer pieniędzy</i>
+                    </div>
+                    <div class="panel-body">
+                        <a href="user/transaction" class="btn btn-info buttonIndex" role="button">Przejdz</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4" style="text-align: center">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <i class="fa fa-window-close-o" aria-hidden="true"> Wyloguj </i>
+                    </div>
+                    <div class="panel-body">
+                        <a href="logout" class="btn btn-warning  buttonIndex" role="button">Przejdz</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+
+{% endblock %}
+

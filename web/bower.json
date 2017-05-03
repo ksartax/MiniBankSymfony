@@ -1,0 +1,24 @@
+{
+  "name": "projektDB",
+  "authors": [
+    "Damian Stępniak <damianos-11@o2.pl>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "components-font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "tether": "^1.4.0",
+    "jquery-validation": "jquery.validate#^1.13.0",
+  }
+}
